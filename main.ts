@@ -17,7 +17,9 @@ try {
   const post = JSON.parse(readFileSync(join(BOT_DIR, 'POST.json'), 'utf8'));
   const url = typeof post === 'object' && post !== null ? post.url : undefined;
   if (typeof url !== 'string' || !/^https:\/\/(x\.com|twitter\.com)\/\S+\/status\/\d+/.test(url)) {
-    console.error('POST.json does not name an X post URL (expected https://x.com/<handle>/status/<id>)');
+    console.error(
+      `POST.json does not name an X post URL (expected https://x.com/<handle>/status/<id>, got: ${String(url)})`,
+    );
     process.exit(1);
   }
   copyFileSync(join(BOT_DIR, 'POST.json'), join(OUTPUT_DIR, 'POST.json'));
